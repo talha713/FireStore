@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, onSnapshot  } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBd69UI9bAna_NVO9LnQUvg8ibOy93Yv28",
@@ -33,6 +33,14 @@ getBtn.addEventListener('click', async () => {
         console.error("Error adding document: ", e);
     }
 
-
-
 })
+
+// const querySnapshot = await getDocs(collection(db, "users"));
+// querySnapshot.forEach((doc) => {
+//   console.log(`${doc.id}`, JSON(doc.data));
+// });
+
+
+const unsub = onSnapshot(doc(db, "users"), (doc) => {
+    console.log("Current data: ", doc.data());
+});
